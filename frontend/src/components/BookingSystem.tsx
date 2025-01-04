@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, ChangeEvent, FormEvent } from "react";
 import { Calendar } from "lucide-react";
 import {
   Card,
@@ -12,8 +12,17 @@ import {
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
+interface BookingData {
+  date: string;
+  time: string;
+  guests: number;
+  name: string;
+  email: string;
+  phone: string;
+}
+
 const BookingSystem = () => {
-  const [bookingData, setBookingData] = useState({
+  const [bookingData, setBookingData] = useState<BookingData>({
     date: "",
     time: "",
     guests: 1,
@@ -40,7 +49,9 @@ const BookingSystem = () => {
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [error, setError] = useState("");
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setBookingData((prev) => ({
       ...prev,
@@ -58,7 +69,7 @@ const BookingSystem = () => {
     return "";
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const validationError = validateForm();
@@ -70,6 +81,7 @@ const BookingSystem = () => {
     setShowConfirmation(true);
   };
 
+  // Rest of the component remains the same...
   if (showConfirmation) {
     return (
       <Card className="w-full max-w-2xl mx-auto bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 text-white animate-fade-in">
