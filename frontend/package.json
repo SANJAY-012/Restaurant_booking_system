@@ -34,3 +34,10 @@
 "scripts": {
   "build": "next build && tsc --noEmit"
 }
+{
+  "functions": {
+    "pages/api/users/**/*.js": {
+      "maxDuration": 30
+    }
+  }
+}
